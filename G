@@ -1,0 +1,29 @@
+def count_duplicate_emails(roll_numbers):
+    email_count = {}
+    for roll_number in roll_numbers:
+        if roll_number in email_count:
+            email_count[roll_number] += 1
+        else:
+            email_count[roll_number] = 1
+    
+    duplicates_count = sum(count - 1 for count in email_count.values() if count > 1)
+    deleted_roll_numbers = [roll_number for roll_number, count in email_count.items() if count > 1]
+    return duplicates_count, deleted_roll_numbers
+
+def main():
+    roll_numbers = []
+    while True:
+        roll_number = input("Enter roll number (type 'done' to finish): ")
+        if roll_number.lower() == 'done':
+            break
+        try:
+            roll_numbers.append(int(roll_number))
+        except ValueError:
+            print("Invalid input. Please enter a valid roll number.")
+    
+    deleted_emails_count, deleted_roll_numbers = count_duplicate_emails(roll_numbers)
+    print("Number of emails to be deleted:", deleted_emails_count)
+    print("Roll numbers of deleted emails:", deleted_roll_numbers)
+
+if __name__ == "__main__":
+    main()
